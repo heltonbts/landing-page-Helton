@@ -5,7 +5,8 @@ import * as motion from "motion/react-client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import Eu from '../../public/helton.jpg'
+import Eu from "../../public/helton.jpg";
+import Link from "next/link";
 
 export function WhoIAm() {
   return (
@@ -21,9 +22,7 @@ export function WhoIAm() {
         transition={{ delay: 0.3, duration: 0.8 }}
         className="text-6xl md:text-8xl font-bold mb-8 leading-none"
       >
-        <span className="block text-white mb-2">
-          Quem
-        </span>
+        <span className="block text-white mb-2">Quem</span>
         <motion.span
           className="block bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 bg-clip-text text-transparent"
           animate={{
@@ -66,8 +65,18 @@ export function WhoIAm() {
               Motion
             </li>
           </ul>
-
-          <Button variant="default">Saiba Mais</Button>
+          <div className="flex gap-5 justify-center">
+            <Link href="/sobremim">
+              <Button variant="default" className="cursor-pointer w-30 h-10">
+                Saiba Mais
+              </Button>
+            </Link>
+            <Link href="/projetos">
+              <Button variant="secondary" className="cursor-pointer w-30 h-10">
+                Projetos
+              </Button>
+              </Link>
+          </div>
         </CardContent>
       </Card>
     </motion.div>

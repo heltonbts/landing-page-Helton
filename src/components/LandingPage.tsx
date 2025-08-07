@@ -20,6 +20,8 @@ import {
 } from "lucide-react";
 import FormLead from "./FormLead";
 import { WhoIAm } from "./WhoIAm";
+import Image from "next/image";
+import LogoWhatsApp from "../../public/WhatsApp.webp";
 
 export const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,7 +54,7 @@ export const LandingPage = () => {
   const WhatsAppButton = ({ children, className = "" }: any) => (
     <motion.a
       href="#"
-      className={`inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-green-500/25 transition-all duration-300 ${className}`}
+      className={`inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-green-500/25 transition-all duration-300 ${className} relative`}
       whileHover={{ scale: 1.05, y: -2 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -63,7 +65,16 @@ export const LandingPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-hidden relative">
+      <div className="h-[60px] w-[60px] absolute bottom-4 right-4">
+        <p>teste</p>
+        <Image
+          src={LogoWhatsApp}
+          alt="logo do whatsapp"
+          width={64}
+          height={64}
+        />
+      </div>
       {/* Grid Background - similar to Motion.dev */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
         <div
@@ -459,7 +470,6 @@ export const LandingPage = () => {
         </div>
       </section>
 
-
       <section className="py-20 px-4 bg-gradient-to-r from-red-900/30 to-purple-900/30 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -515,7 +525,6 @@ export const LandingPage = () => {
           </div>
         </div>
       </section>
-
 
       {/* Footer */}
       <footer className="py-8 px-4 border-t border-purple-500/30">
