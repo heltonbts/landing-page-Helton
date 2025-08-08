@@ -3,10 +3,9 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { CreateLead } from "../actions/LeadResponse"
+import { CreateLead } from "../actions/LeadResponse";
 import { toast } from "react-toastify";
 
-// Tipagem dos campos do formulário
 type Inputs = {
   name: string;
   email: string;
@@ -14,7 +13,11 @@ type Inputs = {
   message: string;
 };
 
-export default function ContactForm() {
+type GetLeadProps = {
+  GetLead: () => void;
+};
+
+export default function ContactForm({ GetLead }: GetLeadProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -34,20 +37,19 @@ export default function ContactForm() {
     setIsSubmitting(false);
 
     if (result.success) {
-      alert("Mensagem enviada com sucesso");
-      reset()
+      GetLead();
+      toast.success("Mensagem enviada com sucesso");
+      reset();
     } else {
       setServerError(result.error || "Ocorreu um erro desconhecido.");
     }
   };
-
 
   const inputClass =
     "mt-1 text-black block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none";
   const errorTextClass = "mt-1 text-red-500 text-xs";
 
   return (
-
     <div className="flex min-h-screen items-center justify-center p-4 m-0">
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -58,7 +60,10 @@ export default function ContactForm() {
         </h2>
 
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-700 text-start">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-slate-700 text-start"
+          >
             Nome Completo
           </label>
           <input
@@ -68,12 +73,17 @@ export default function ContactForm() {
             className={inputClass}
             {...register("name", { required: "O campo nome é obrigatório." })}
           />
-          {errors.name && <span className={errorTextClass}>{errors.name.message}</span>}
+          {errors.name && (
+            <span className={errorTextClass}>{errors.name.message}</span>
+          )}
         </div>
 
         {/* Campo Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700  text-start">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-slate-700  text-start"
+          >
             Email
           </label>
           <input
@@ -89,12 +99,17 @@ export default function ContactForm() {
               },
             })}
           />
-          {errors.email && <span className={errorTextClass}>{errors.email.message}</span>}
+          {errors.email && (
+            <span className={errorTextClass}>{errors.email.message}</span>
+          )}
         </div>
 
         {/* Campo WhatsApp */}
         <div>
-          <label htmlFor="whatsapp" className="block text-sm font-medium text-black text-start">
+          <label
+            htmlFor="whatsapp"
+            className="block text-sm font-medium text-black text-start"
+          >
             WhatsApp
           </label>
           <input
@@ -102,14 +117,21 @@ export default function ContactForm() {
             type="tel"
             placeholder="(99) 99999-9999"
             className={inputClass}
-            {...register("whatsapp", { required: "O campo WhatsApp é obrigatório." })}
+            {...register("whatsapp", {
+              required: "O campo WhatsApp é obrigatório.",
+            })}
           />
-          {errors.whatsapp && <span className={errorTextClass}>{errors.whatsapp.message}</span>}
+          {errors.whatsapp && (
+            <span className={errorTextClass}>{errors.whatsapp.message}</span>
+          )}
         </div>
 
         {/* Campo Mensagem */}
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-black text-start">
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-black text-start"
+          >
             Mensagem
           </label>
           <textarea
@@ -123,7 +145,10 @@ export default function ContactForm() {
 
         {/* Erro do Servidor */}
         {serverError && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
             <span className="block sm:inline">{serverError}</span>
           </div>
         )}

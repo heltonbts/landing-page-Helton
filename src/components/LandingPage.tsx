@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import * as motion from "motion/react-client";
+import ReactPixel from "react-facebook-pixel";
 import {
   CheckCircle,
   X,
@@ -26,12 +27,20 @@ import { WorkProcess } from "./Process";
 import { GuaranteeSection } from "./GuaranteeSection";
 import Link from "next/link";
 
+const options = {
+  autoConfig: true,
+  debug: true,
+};
+
 export const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   console.log(isVisible);
 
   useEffect(() => {
     setIsVisible(true);
+    ReactPixel.init("652632903896478", undefined, options);
+    ReactPixel.pageView();
+    console.log('pixel iniciado')
   }, []);
 
   const fadeInUp = {
@@ -54,6 +63,19 @@ export const LandingPage = () => {
     transition: { duration: 0.6, ease: "easeOut" },
   };
 
+  const whatsapp = "https://wa.link/wwhcrs";
+
+  const RefWhatsApp = () => {
+    console.log('evento disparado')
+    ReactPixel.track('Contact')
+    window.open(whatsapp, "_blank");
+  };
+
+  const GetLead = () => {
+    console.log('evento disparado')
+    ReactPixel.track('Lead')
+  };
+
   const WhatsAppButton = ({ children, className = "" }: any) => (
     <motion.a
       href="#"
@@ -70,13 +92,14 @@ export const LandingPage = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
       <div className="h-[60px] w-[60px] fixed bottom-6 right-6 z-50 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-120">
-        <Link href='https://wa.link/wwhcrs' >
-        <Image
-          src={LogoWhatsApp}
-          alt="logo do whatsapp"
-          width={64}
-          height={64}
-        /></Link>
+        <Link href={''} onClick={RefWhatsApp}>
+          <Image
+            src={LogoWhatsApp}
+            alt="logo do whatsapp"
+            width={64}
+            height={64}
+          />
+        </Link>
       </div>
       {/* Grid Background - similar to Motion.dev */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
@@ -170,6 +193,7 @@ export const LandingPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            onClick={RefWhatsApp}
           >
             <WhatsAppButton className="text-lg font-semibold">
               Quero minha landing page
@@ -262,7 +286,7 @@ export const LandingPage = () => {
               </div>
 
               {[
-                'Suas vendas dependem do "ao vivo"',
+                'Suas vendas dependem da "sorte"',
                 "Você perde leads todos os dias",
                 "Fica invisível para o cliente",
               ].map((problem, index) => (
@@ -508,7 +532,11 @@ export const LandingPage = () => {
               Clique abaixo e peça agora sua landing page pronta para vender.
             </motion.p>
 
-            <motion.div variants={scaleIn} className="space-y-4">
+            <motion.div
+              variants={scaleIn}
+              className="space-y-4"
+              onClick={RefWhatsApp}
+            >
               <WhatsAppButton className="text-xl px-12 py-6">
                 COMEÇAR AGORA
               </WhatsAppButton>
@@ -528,9 +556,10 @@ export const LandingPage = () => {
               variants={fadeInUp}
               className="text-xl text-purple-200 mt-12 mb-0"
             >
-              Ficou com alguma dúvida? Preencha o formulário e eu retorno rapidamente para ajudar.
+              Ficou com alguma dúvida? Preencha o formulário e eu retorno
+              rapidamente para ajudar.
             </motion.p>
-            <FormLead />
+            <FormLead GetLead={GetLead}/>
           </div>
         </div>
       </section>

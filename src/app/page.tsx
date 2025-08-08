@@ -1,9 +1,11 @@
 import { LandingPage } from "@/components/LandingPage";
-import Image from "next/image";
-import LogoWhatsApp from "/public/WhatsApp.webp";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
-
-   return  <LandingPage />;
-
+  return (
+    <>
+      <LandingPage />
+      <ToastContainer />
+    </>
+  );
 }
