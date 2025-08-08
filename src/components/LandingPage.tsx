@@ -24,6 +24,7 @@ import Image from "next/image";
 import LogoWhatsApp from "../../public/WhatsApp.webp";
 import { WorkProcess } from "./Process";
 import { GuaranteeSection } from "./GuaranteeSection";
+import Link from "next/link";
 
 export const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -68,14 +69,14 @@ export const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
-      <div className="h-[60px] w-[60px] absolute bottom-4 right-4">
-        <p>teste</p>
+      <div className="h-[60px] w-[60px] fixed bottom-6 right-6 z-50 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-120">
+        <Link href='https://wa.link/wwhcrs' >
         <Image
           src={LogoWhatsApp}
           alt="logo do whatsapp"
           width={64}
           height={64}
-        />
+        /></Link>
       </div>
       {/* Grid Background - similar to Motion.dev */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
