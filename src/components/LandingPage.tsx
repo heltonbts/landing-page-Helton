@@ -22,6 +22,8 @@ import FormLead from "./FormLead";
 import { WhoIAm } from "./WhoIAm";
 import Image from "next/image";
 import LogoWhatsApp from "../../public/WhatsApp.webp";
+import { WorkProcess } from "./Process";
+import { GuaranteeSection } from "./GuaranteeSection";
 
 export const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -126,7 +128,7 @@ export const LandingPage = () => {
             >
               <Smartphone className="w-5 h-5 text-purple-400" />
               <span className="text-purple-300 font-medium">
-                LandingPage Profissional
+                Landing Page Profissional
               </span>
             </motion.div>
           </motion.div>
@@ -261,7 +263,7 @@ export const LandingPage = () => {
               {[
                 'Suas vendas dependem do "ao vivo"',
                 "Você perde leads todos os dias",
-                "Fica invisível no Google",
+                "Fica invisível para o cliente",
               ].map((problem, index) => (
                 <motion.div
                   key={index}
@@ -404,6 +406,10 @@ export const LandingPage = () => {
         <WhoIAm />
       </section>
 
+      <section>
+        <WorkProcess />
+      </section>
+
       {/* Social Proof Section */}
       <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
@@ -469,6 +475,9 @@ export const LandingPage = () => {
           </motion.div>
         </div>
       </section>
+      <section>
+        <GuaranteeSection />
+      </section>
 
       <section className="py-20 px-4 bg-gradient-to-r from-red-900/30 to-purple-900/30 backdrop-blur-sm">
         <div className="max-w-4xl mx-auto text-center">
@@ -518,8 +527,7 @@ export const LandingPage = () => {
               variants={fadeInUp}
               className="text-xl text-purple-200 mt-12 mb-0"
             >
-              Ainda tem dúvidas? Preenche-a o formulário abaixo e entro em
-              contato
+              Ficou com alguma dúvida? Preencha o formulário e eu retorno rapidamente para ajudar.
             </motion.p>
             <FormLead />
           </div>
