@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import * as motion from "motion/react-client";
-import ReactPixel from "react-facebook-pixel";
 import {
   CheckCircle,
   X,
@@ -38,9 +37,14 @@ export const LandingPage = () => {
 
   useEffect(() => {
     setIsVisible(true);
-    ReactPixel.init("652632903896478", undefined, options);
-    ReactPixel.pageView();
-    console.log('pixel iniciado')
+
+    if (typeof window !== "undefined") {
+      import("react-facebook-pixel").then((ReactPixel) => {
+        ReactPixel.default.init("652632903896478", undefined, options);
+        ReactPixel.default.pageView();
+        console.log("pixel iniciado");
+      });
+    }
   }, []);
 
   const fadeInUp = {
@@ -66,14 +70,22 @@ export const LandingPage = () => {
   const whatsapp = "https://wa.link/wwhcrs";
 
   const RefWhatsApp = () => {
-    console.log('evento disparado')
-    ReactPixel.track('Contact')
+    console.log("evento disparado");
+    if (typeof window !== "undefined") {
+      import("react-facebook-pixel").then((ReactPixel) => {
+        ReactPixel.default.track("Contact");
+      });
+    }
     window.open(whatsapp, "_blank");
   };
 
   const GetLead = () => {
-    console.log('evento disparado')
-    ReactPixel.track('Lead')
+    console.log("evento disparado");
+    if (typeof window !== "undefined") {
+      import("react-facebook-pixel").then((ReactPixel) => {
+        ReactPixel.default.track("Lead");
+      });
+    }
   };
 
   const WhatsAppButton = ({ children, className = "" }: any) => (
@@ -92,7 +104,7 @@ export const LandingPage = () => {
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden relative">
       <div className="h-[60px] w-[60px] fixed bottom-6 right-6 z-50 transition duration-300 ease-in-out hover:-translate-y-1 hover:scale-120">
-        <Link href={''} onClick={RefWhatsApp}>
+        <Link href={""} onClick={RefWhatsApp}>
           <Image
             src={LogoWhatsApp}
             alt="logo do whatsapp"
@@ -559,7 +571,7 @@ export const LandingPage = () => {
               Ficou com alguma dúvida? Preencha o formulário e eu retorno
               rapidamente para ajudar.
             </motion.p>
-            <FormLead GetLead={GetLead}/>
+            <FormLead GetLead={GetLead} />
           </div>
         </div>
       </section>
